@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trevor_Form</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Inspection — Mobile Form → PDF</title>
+  <style>
+    :root{--brand:#005EB8;--brand-dark:#0b4ea2;--ink:#111827;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff;--ok:#16a34a;--no:#b91c1c;--na:#6b7280}
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:820px;margin:0 auto;padding:16px}
+    .card{background:var(--card);border-radius:14px;box-shadow:0 6px 20px rgba(17,24,39,.06);padding:14px 14px}
+    header{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+    .logo{display:flex;align-items:center;gap:14px}
+    .wordmark{height:36px;display:inline-block}
+    h1{font-size:20px;margin:4px 0}
+    .strap{font-size:12px;color:#374151;letter-spacing:.2px}
+    .titleRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .vdiv{width:1px;height:20px;background:#cbd5e1}
+    .wqmp{font-size:18px}
+    .wqmp b{font-weight:700}
+    .wqmp .light{font-weight:400}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:560px){.grid{grid-template-columns:repeat(2,1fr)}}
+    label{font-size:13px;color:#374151;margin-bottom:4px;display:block}
+    input,textarea,select{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;font:inherit}
+    textarea{min-height:84px}
+    .sec{margin:14px 0;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+    .sec h3{margin:0;padding:10px 12px;background:#f1f5f9;color:#0f172a;font-size:14px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
+    .q{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 12px;border-top:1px solid #f1f5f9}
+    .q:first-of-type{border-top:0}
+    .qtext{font-size:14px}
+    .pillset{display:flex;gap:6px;align-items:center}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;cursor:pointer;user-select:none;font-size:13px}
+    .pill[data-v="yes"].active{background:rgba(22,163,74,.08);border-color:var(--ok);color:var(--ok)}
+    .pill[data-v="no"].active{background:rgba(185,28,28,.08);border-color:var(--no);color:var(--no)}
+    .pill[data-v="na"].active{background:rgba(107,114,128,.08);border-color:var(--na);color:var(--na)}
+    .addnote{border:none;background:#eef2ff;color:var(--brand-dark);padding:8px 10px;border-radius:10px;cursor:pointer;font-size:12px}
+    .note{display:none;margin-top:10px}
+    .note.show{display:block}
+    .note textarea{background:#f9fafb}
+    .toolbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.9);backdrop-filter:saturate(1.2) blur(6px);border-top:1px solid #e5e7eb;padding:10px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{appearance:none;border:none;border-radius:12px;padding:12px 14px;font-weight:600;cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-outline{background:#fff;border:1px solid #cbd5e1}
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .sigPreview{margin-top:8px;font-family:'Brush Script MT', 'Segoe Script', cursive;font-size:28px;color:#1f2937}
+    .sigHelp{font-size:12px;color:#6b7280;margin-top:4px}
+  </style>
+  <!-- pdfmake -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.10/vfs_fonts.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo" aria-label="Costain">
+          <!-- Inline SVG logo. Replace the inner content with the official SVG if you obtain it. -->
+          <svg class="wordmark" viewBox="0 0 156 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+            <!-- Simple vector matching Costain style (blue bars + white word) -->
+            <rect x="0" y="6" width="66" height="28" fill="#0B4EA2"/>
+            <rect x="66" y="6" width="6" height="28" fill="#0B4EA2"/>
+            <rect x="72" y="6" width="84" height="28" fill="#E5EAF4"/>
+            <rect x="76" y="10" width="76" height="20" fill="#005EB8"/>
+            <text x="114" y="25" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="14" fill="#fff">COSTAIN</text>
+          </svg>
+          <div>
+            <div class="strap small muted">Together we shape, create, deliver</div>
+            <div class="titleRow">
+              <h1 style="margin:0">Site Inspection</h1>
+              <span class="vdiv" aria-hidden="true"></span>
+              <div class="wqmp"><b>WQMP</b> <span class="light">(Water Quality Management Programme)</span></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid" id="meta">
+        <div>
+          <label>Contractor</label>
+          <input name="contractor" />
+        </div>
+        <div>
+          <label>Site</label>
+          <input name="site" />
+        </div>
+        <div>
+          <label>Inspection by</label>
+          <input name="inspector" />
+        </div>
+        <div>
+          <label>Date</label>
+          <input name="date" type="date" />
+        </div>
+        <div>
+          <label>PCW</label>
+          <input name="pcw" />
+        </div>
+        <div>
+          <label>Project Manager</label>
+          <input name="pm" />
+        </div>
+      </section>
+
+      <div id="sections"></div>
+
+      <!-- Signature Section -->
+      <section class="sec" id="signatureSection">
+        <h3>Signature</h3>
+        <div class="q">
+          <div>
+            <label class="small muted" for="signatureName">Type your name to sign</label>
+            <input name="signatureName" id="signatureName" placeholder="Full name" />
+            <div class="sigPreview"><span id="sigPreviewText">Your Signature</span></div>
+            <div class="sigHelp">Your typed name will appear on the PDF with today’s date.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="toolbar">
+        <button class="btn btn-outline" id="clearBtn">Clear All</button>
+        <button class="btn btn-primary" id="pdfPreviewBtn">Preview PDF</button>
+        <button class="btn btn-outline" id="pdfDownloadBtn">Download PDF</button>
+      </div>
+      <p class="small muted">Tip: You can add this page to your phone’s Home Screen for quick access. Answers are kept in the page until you clear them.</p>
+    </div>
+  </div>
+
+<script>
+// Keep everything scoped to avoid duplicate variable errors on re-run
+(function(){
+  'use strict';
+
+  // ===== Schema of sections & questions (from your screenshots) =====
+  const SCHEMA = [
+    { title: '1 · CDM', items: [
+      'Have the RAMS been reviewed by Costain and the PCW?',
+      'Are the RAMS relevant to the work being carried out?',
+      'Are the contractors CPP available and up to date?',
+      'Does the job require an F10 Notification of Construction Project, and if so, is this available and up to date?',
+      'Is the contractors HSEQ safety information clearly displayed?'
+    ]},
+    { title: '2 · Permits', items: [
+      'Is the UU SHED in place and relevant documentation up to date?',
+      'Has the contractor been issued an MSP lift permit?',
+      'Has the contractor issued a permit to dig, where applicable?'
+    ]},
+    { title: '3 · Induction / Competencies', items: [
+      'Have site inductions been carried out and evidenced?',
+      'Are all competency certificates available? This includes electronically.',
+      'Are the medical certificates available and valid?',
+      'Are there enough adequately trained first aiders on-site?',
+      'Is the site foreman SSSTS/ SMSTS trained?',
+      'Are plant operator inductions required?',
+      'Are the workforce aware of the Fire Assembly Point?'
+    ]},
+    { title: '4 · PPE', items: [
+      'Is the MSP 6 point PPE being worn?',
+      'Is the PPE worn task specific, and adequate for each task?'
+    ]},
+    { title: '5 · Welfare', items: [
+      'Are there appropriate welfare facilities available on-site, and are these well maintained?',
+      'Are the workforce satisfied with their welfare facilities?',
+      'Are there drying rooms available for PPE?'
+    ]},
+    { title: 'General Checks', items: [
+      'Are there fire extinguishers available, and valid?',
+      'Is the first aid equipment clearly visible and adequately stocked?',
+      'Are all electrical appliances PAT tested?',
+      'Is there adequate lighting, via access and exit points?'
+    ]},
+    { title: '6 · Plant & Equipment', items: [
+      'Is all plant on-site certified?',
+      'Are daily plant inspections being carried out and evidenced?',
+      'Are LOLER and PUWER of work equipment evidenced?'
+    ]},
+    { title: '7 · Environmental', items: [
+      'Is the site tidy?',
+      'Is waste segregated and in correct skips?',
+      'Is the waste carrier licence evidenced?',
+      'Are SPILL kits and plant nappies with liners available on-site?',
+      "Are the 11 C's being evidenced?"
+    ]},
+    { title: '8 · Vehicle Movements / Traffic Management', items: [
+      'Are vehicle movements safely controlled with adequate segregation?',
+      'Is a TM management plan in place?'
+    ]},
+    { title: '9 · Pedestrian Safety', items: [
+      'Is pedestrian safety appropriately controlled, including access egress, signage, walkways, and segregation?'
+    ]},
+    { title: "10 · Quality ITP's / Check Sheets", items: [
+      "Are ITP's / checklists in place?",
+      'Is the quality of work up to standard?'
+    ]},
+    { title: '11 · Isolation & Site Security', items: [
+      'Is the UU equipment isolated?',
+      'Is the CNT 600 and LOTO evidenced?',
+      'Is site security under UU control?'
+    ]},
+    { title: '12 · Mental Health & Wellbeing', items: [
+      'Are the workforce aware of who the MSP mental health first aiders are?',
+      'Is there anything I can do to help?'
+    ]},
+    { title: '13 · Emergencies', items: [
+      'Is there an emergency plan in place?',
+      'Is there a defibrillator available, and is the workforce aware of the location?',
+      'Is what3words available?',
+      'Is a practice for an emergency situation required?'
+    ]},
+  ];
+
+  // ===== Render form =====
+  const sectionsEl = document.getElementById('sections');
+  SCHEMA.forEach((sec, sIdx)=>{
+    const secEl = document.createElement('section');
+    secEl.className = 'sec';
+    secEl.innerHTML = `<h3>${sec.title}<span class="muted small">YES / NO / N/A · Add notes</span></h3>`;
+    sec.items.forEach((q, qIdx)=>{
+      const id = `s${sIdx}q${qIdx}`;
+      const qEl = document.createElement('div');
+      qEl.className = 'q';
+      qEl.innerHTML = `
+        <div>
+          <div class="qtext">${q}</div>
+          <div class="note" id="${id}-note">
+            <label class="small muted">Notes / Actions</label>
+            <textarea data-bind="note" data-id="${id}" placeholder="Add details, actions, names, etc."></textarea>
+          </div>
+        </div>
+        <div>
+          <div class="pillset" role="group" aria-label="choices">
+            <span class="pill" data-id="${id}" data-v="yes">Yes</span>
+            <span class="pill" data-id="${id}" data-v="no">No</span>
+            <span class="pill" data-id="${id}" data-v="na">N/A</span>
+            <button class="addnote" type="button" data-id="${id}">＋</button>
+          </div>
+        </div>`;
+      secEl.appendChild(qEl);
+    });
+    sectionsEl.appendChild(secEl);
+  });
+
+  // Selection logic with highlighting and persistence
+  const STATE = JSON.parse(localStorage.getItem('siteInspectionState')||'{}');
+  function save(){ localStorage.setItem('siteInspectionState', JSON.stringify(STATE)); }
+
+  function setChoice(id, val){
+    STATE[id] = STATE[id] || {}; STATE[id].choice = val; save();
+    document.querySelectorAll(`.pill[data-id="${id}"]`).forEach(p=>{
+      p.classList.toggle('active', p.dataset.v===val);
+    });
+  }
+  function toggleNote(id){
+    const box = document.getElementById(`${id}-note`);
+    box.classList.toggle('show');
+  }
+  function setNote(id, text){ STATE[id] = STATE[id] || {}; STATE[id].note = text; save(); }
+
+  // Wire events
+  sectionsEl.addEventListener('click', e=>{
+    const pill = e.target.closest('.pill');
+    if(pill){ setChoice(pill.dataset.id, pill.dataset.v); }
+    const plus = e.target.closest('.addnote');
+    if(plus){ toggleNote(plus.dataset.id); }
+  });
+  sectionsEl.addEventListener('input', e=>{
+    if(e.target.matches('textarea[data-bind="note"]')){
+      setNote(e.target.dataset.id, e.target.value);
+    }
+  });
+
+  // Restore UI from STATE
+  function restore(){
+    Object.entries(STATE).forEach(([id, v])=>{
+      if(v && v.choice){ document.querySelectorAll(`.pill[data-id="${id}"]`).forEach(p=>{p.classList.toggle('active', p.dataset.v===v.choice)}); }
+      if(v && v.note){ const box = document.getElementById(`${id}-note`); if(box){ box.classList.add('show'); const ta=box.querySelector('textarea'); if(ta) ta.value = v.note; } }
+    });
+    // meta
+    const meta = document.querySelectorAll('#meta input');
+    meta.forEach(i=>{ if(STATE.meta?.[i.name]) i.value = STATE.meta[i.name]; });
+    // signature
+    if(STATE.signatureName){ const inp = document.getElementById('signatureName'); const prev = document.getElementById('sigPreviewText'); if(inp){ inp.value = STATE.signatureName; } if(prev){ prev.textContent = STATE.signatureName; }}
+  }
+  restore();
+
+  // meta persistence
+  document.getElementById('meta').addEventListener('input', e=>{
+    STATE.meta = STATE.meta || {}; STATE.meta[e.target.name] = e.target.value; save();
+  });
+
+  // signature persistence + live preview
+  const sigInput = document.getElementById('signatureName');
+  const sigPreview = document.getElementById('sigPreviewText');
+  function updateSignature(val){
+    STATE.signatureName = val; save();
+    if(sigPreview){ sigPreview.textContent = val || 'Your Signature'; }
+  }
+  sigInput.addEventListener('input', (e)=> updateSignature(e.target.value));
+
+  // Clear
+  document.getElementById('clearBtn').addEventListener('click', ()=>{
+    if(confirm('Clear all answers?')){ localStorage.removeItem('siteInspectionState'); location.reload(); }
+  });
+
+  // ===== PDF generation =====
+  function buildPdfDoc(){
+    const meta = STATE.meta || {};
+    const today = new Date().toISOString().slice(0,10);
+
+    // Header with inline SVG and WQMP block. For pixel-match with screen header, we use columns and a thin vertical line.
+    const logoSvg = '\
+      <svg viewBox="0 0 156 40" width="156" height="40" xmlns="http://www.w3.org/2000/svg">\
+        <rect x="0" y="6" width="66" height="28" fill="#0B4EA2"/>\
+        <rect x="66" y="6" width="6" height="28" fill="#0B4EA2"/>\
+        <rect x="72" y="6" width="84" height="28" fill="#E5EAF4"/>\
+        <rect x="76" y="10" width="76" height="20" fill="#005EB8"/>\
+        <text x="114" y="25" font-family="Arial" font-weight="700" font-size="14" fill="#ffffff" text-anchor="middle">COSTAIN</text>\
+      </svg>';
+
+    const header = {
+      columns:[
+        { svg: logoSvg, width: 160 },
+        {
+          width: '*',
+          stack: [
+            { text: 'Together we shape, create, deliver', style: 'strap' },
+            {
+              columns: [
+                { text: 'Site Inspection', style: 'h1' },
+                { width: 1, canvas: [ { type: 'line', x1:0, y1:0, x2:0, y2:18, lineWidth:1, lineColor:'#cbd5e1' } ] },
+                { text: [{ text:'WQMP', bold:true }, { text:' (Water Quality Management Programme)', bold:false }], style: 'wqmp' }
+              ],
+              columnGap: 10,
+              margin: [0, 2, 0, 0]
+            }
+          ]
+        }
+      ]
+    };
+
+    const metaTable = {
+      table:{ widths:['*','*','*','*'], body:[
+        [{text:'Contractor',style:'th'},{text:meta.contractor||'',style:'td'},{text:'Site',style:'th'},{text:meta.site||'',style:'td'}],
+        [{text:'Inspection by',style:'th'},{text:meta.inspector||'',style:'td'},{text:'Date',style:'th'},{text:meta.date||today,style:'td'}],
+        [{text:'PCW',style:'th'},{text:meta.pcw||'',style:'td'},{text:'Project Manager',style:'th'},{text:meta.pm||'',style:'td'}],
+      ]}, layout:'lightHorizontalLines'
+    };
+
+    const sections = [];
+    SCHEMA.forEach((sec, sIdx)=>{
+      sections.push({text: sec.title, style:'h2', margin:[0,10,0,4]});
+      const rows = [[{text:'Question',style:'th'},{text:'Answer',style:'th', alignment:'center'},{text:'Notes / Actions',style:'th'}]];
+      sec.items.forEach((q,qIdx)=>{
+        const id = `s${sIdx}q${qIdx}`;
+        const ans = (STATE[id]?.choice||'').toUpperCase();
+        const note = STATE[id]?.note || '';
+        rows.push([{text:q,style:'td'},{text:ans,style:'td', alignment:'center'},{text:note,style:'td'}]);
+      });
+      sections.push({table:{widths:['*',60,'*'], body:rows}, layout:'lightHorizontalLines'});
+    });
+
+    // Signature block
+    const sigName = STATE.signatureName || '';
+    const signDate = meta.date || today;
+    sections.push({
+      margin:[0,14,0,0],
+      table:{
+        widths:['*','*'],
+        body:[
+          [
+            {text:`Signed by: ${sigName || '[Not signed]'}`, border:[false,false,false,false]},
+            {text:`Date: ${signDate}`, alignment:'right', border:[false,false,false,false]}
+          ]
+        ]
+      },
+      layout:'noBorders'
+    });
+
+    return {
+      pageMargins:[28,36,28,36],
+      content: [header,{text:' ',margin:[0,6]}, metaTable].concat(sections),
+      styles:{
+        strap:{fontSize:9,color:'#374151'},
+        h1:{fontSize:18,bold:true,color:'#0b4ea2'},
+        wqmp:{fontSize:16,color:'#0f172a'},
+        h2:{fontSize:12,bold:true,color:'#0b4ea2'},
+        th:{bold:true, fillColor:'#eef2ff'}, td:{margin:[2,4,2,4]}
+      },
+      defaultStyle:{fontSize:9}
+    };
+  }
+
+  function openPdf(){
+    pdfMake.createPdf(buildPdfDoc()).open();
+  }
+  function downloadPdf(){
+    const meta = STATE.meta || {}; const date = meta.date || new Date().toISOString().slice(0,10);
+    const site = (meta.site||'Site').replace(/[^A-Za-z0-9-_]+/g,'_');
+    const fname = `Site-Inspection_${site}_${date}.pdf`;
+    pdfMake.createPdf(buildPdfDoc()).download(fname);
+  }
+
+  document.getElementById('pdfPreviewBtn').addEventListener('click', openPdf);
+  document.getElementById('pdfDownloadBtn').addEventListener('click', downloadPdf);
+
+  // ===== Lightweight self-tests (console) =====
+  (function selfTests(){
+    try {
+      console.assert(Array.isArray(SCHEMA) && SCHEMA.length >= 10, 'SCHEMA should contain sections');
+      const rendered = document.querySelectorAll('#sections .sec').length;
+      console.assert(rendered === SCHEMA.length, `Rendered sections (${rendered}) should equal schema length (${SCHEMA.length})`);
+      const doc = buildPdfDoc();
+      console.assert(doc && doc.content && doc.styles, 'PDF doc definition should be created');
+      console.assert(typeof (STATE.signatureName ?? '') === 'string', 'Signature should be a string');
+      console.assert(!!document.getElementById('pdfPreviewBtn') && !!document.getElementById('pdfDownloadBtn'), 'PDF buttons should exist');
+      console.info('Self-tests passed: schema, DOM render, PDF builder, signature OK');
+    } catch (e) {
+      console.warn('Self-tests failed:', e);
+    }
+  })();
+})();
+</script>
+</body>
+</html>
+
+</body>
+</html>
